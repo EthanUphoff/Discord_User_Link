@@ -7,7 +7,7 @@ bot.login('')
 
 bot.on('ready', function(){
   console.log('The bot is online!')
-  bot.user.setActivity(`on ${bot.guilds.size} servers`)
+  bot.user.setActivity(`url\?help`)
 })
 
 bot.on('message', function(msg) {
@@ -26,6 +26,10 @@ bot.on('message', function(msg) {
   if(msg.content.startsWith(prefix)){
     const args = msg.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
+    if(command == 'help'){
+      msg.channel.send('You can either type ``What is my url?`` or ``url?<mentions>``');
+      return;
+    }
     if(command == ''){
       msg.channel.send('Must include a mention.')
     } else if (msg.mentions.users.size < 1) {
