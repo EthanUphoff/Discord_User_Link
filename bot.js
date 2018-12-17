@@ -21,11 +21,11 @@ bot.on('message', function(msg) {
             msg.channel.send('You can either type ``What is my url?`` or ``url?<mentions>``');
         } else if(command == ''){
             msg.channel.send('Must include a mention.')
-        } else if(command == 'info'){
+        } else if(command == 'info' && msg.member != null){
             if(msg.mentions.users.size < 1){
-                userinfo(msg, msg.author);
+                userinfo(msg, msg.author, msg.member);
             } else if(msg.mentions.users.size > 0){
-                userinfo(msg, msg.mentions.users.first());
+                userinfo(msg, msg.mentions.users.first(), msg.mentions.members.first());
             }
         } else if (msg.mentions.users.size < 1) {
             msg.channel.send('No mentions found, make sure you are actually mentioning someone.');
@@ -50,9 +50,16 @@ function urlstuff(msg, items){
     }})
 }
 
-function userinfo(msg, items){
+function userinfo(msg, items, memberstatus){
+    if(memberstatus.colorRole != null){
+        var color = memberstatus.displayColor
+    } else {
+        var color = 10070709
+    }
+    var dates = Date.now() - memberstatus.joinedAt
+    var date = convertms(dates);
     msg.channel.send({ "embed": {
-        "color": Math.floor(Math.random() * 16777214) + 1,
+        "color": color,
         "timestamp": msg.createdTimestamp,
         "footer": {
             "icon_url": msg.author.avatarURL,
@@ -62,7 +69,7 @@ function userinfo(msg, items){
             "url": items.avatarURL
         },
         "author": {
-            name: items.username,
+            name: memberstatus.displayName,
             icon_url: items.avatarURL,
             "url": 'https://discordapp.com/users/' + items.id
         },
@@ -78,7 +85,26 @@ function userinfo(msg, items){
             {
                 "name": "Created:",
                 "value": items.createdAt.toString()
+            },
+            {
+                "name": "Joined Server:",
+                "value": date
             }
         ]
     }})
+}
+
+
+//https://gist.github.com/Erichain/6d2c2bf16fe01edfcffa
+function convertms(milliseconds){
+    var day, hour, minute, seconds;
+    seconds = Math.floor(milliseconds / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+
+  return day + ' days ' + hour + ' hours ' + minute + ' minutes ' + seconds + ' seconds ago';
 }
