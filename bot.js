@@ -21,12 +21,14 @@ bot.on('message', function(msg) {
             msg.channel.send('You can either type ``What is my url?`` or ``url?<mentions>``');
         } else if(command == ''){
             msg.channel.send('Must include a mention.')
-        } else if(command == 'info' && msg.member != null){
+        } else if(command == 'info' && msg.guild != null && msg.guild.available){
             if(msg.mentions.users.size < 1){
                 userinfo(msg, msg.author, msg.member);
             } else if(msg.mentions.users.size > 0){
                 userinfo(msg, msg.mentions.users.first(), msg.mentions.members.first());
             }
+        } else if(command == 'info'){
+          msg.channel.send('This command can only be sent in a server.')
         } else if (msg.mentions.users.size < 1) {
             msg.channel.send('No mentions found, make sure you are actually mentioning someone.');
         } else if (msg.mentions.users.size > 0){
