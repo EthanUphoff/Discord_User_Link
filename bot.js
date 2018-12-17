@@ -18,7 +18,7 @@ bot.on('message', function(msg) {
         const command = args.shift();
 
         if(command == 'help'){
-            msg.channel.send('You can either type ``What is my url?`` or ``url?<mentions>``');
+            msg.channel.send('You can either type ``What is my url?`` or ``url?<mentions>`` \n For more information on a user, type ``url?info <mentions?>``');
         } else if(command == ''){
             msg.channel.send('Must include a mention.')
         } else if(command == 'info' && msg.guild != null && msg.guild.available){
