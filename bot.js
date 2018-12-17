@@ -3,7 +3,7 @@ const bot = new Discord.Client()
 
 var prefix = "url?"
 
-bot.login('NTI0MTI0MjA3MTk4NjMzOTg0.DvjgTg.FQyVxmdWpHeO2pkeKN4tk8Q6LNk')
+bot.login('')
 
 bot.on('ready', function(){
   console.log('The bot is online!')
