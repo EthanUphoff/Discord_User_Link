@@ -3,7 +3,7 @@ const bot = new Discord.Client()
 
 var prefix = "url?"
 
-bot.login('NTI0MTI0MjA3MTk4NjMzOTg0.DvjgTg.FQyVxmdWpHeO2pkeKN4tk8Q6LNk')
+bot.login('')
 
 bot.on('ready', function(){
   console.log('The bot is online!')
@@ -12,7 +12,16 @@ bot.on('ready', function(){
 
 bot.on('message', function(msg) {
   if(msg.content == 'What is my url?'){
-    msg.channel.send('https://discordapp.com/users/' + msg.author.id);
+    msg.channel.send({embed: {
+      color: Math.floor(Math.random() * 16777214) + 1,
+      author: {
+        name: msg.author.username,
+        icon_url: msg.author.avatarURL
+      },
+      title: 'https://discordapp.com/users/' + msg.author.id,
+      url: 'https://discordapp.com/users/' + msg.author.id
+    }})
+    return;
   }
   if(msg.content.startsWith(prefix)){
     const args = msg.content.slice(prefix.length).trim().split(/ +/g);
@@ -24,7 +33,15 @@ bot.on('message', function(msg) {
     } else {
       var dismentions = msg.mentions.users
       dismentions.forEach(function(item, index, array){
-        msg.channel.send(item.username + ': ' + 'https://discordapp.com/users/' + item.id);
+        msg.channel.send({embed: {
+          color: Math.floor(Math.random() * 16777214) + 1,
+          author: {
+            name: item.username,
+            icon_url: item.avatarURL
+          },
+          title: 'https://discordapp.com/users/' + item.id,
+          url: 'https://discordapp.com/users/' + item.id
+        }})
       })
     }
   }
