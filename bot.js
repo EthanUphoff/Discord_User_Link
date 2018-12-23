@@ -29,8 +29,12 @@ bot.on('message', function(msg) {
             } else if(msg.mentions.users.size > 0){
                 info.userinfo(msg, msg.mentions.users.first(), msg.mentions.members.first());
             }
-        } else if(command == 'info'){
-          msg.channel.send('This command can only be sent in a server.')
+        } else if(command == 'info' && (msg.channel.type == 'dm' || msg.channel.type == 'group')){
+          if(msg.mentions.users.size < 1){
+              info.userinfodm(msg, msg.author);
+          } else if(msg.mentions.users.size > 0){
+              info.userinfodm(msg, msg.mentions.users.first());
+          }
         } else if (msg.mentions.users.size < 1) {
             msg.channel.send('No mentions found, make sure you are actually mentioning someone.');
         } else if (msg.mentions.users.size > 0){
