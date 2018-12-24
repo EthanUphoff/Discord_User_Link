@@ -20,7 +20,7 @@ function dl(str, id, msg){
     .then(
       setTimeout(function(){
         deleting(id);
-      }, 2000))
+      }, 10))
     .catch(console.error);
   })
 }
