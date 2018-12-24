@@ -1,4 +1,3 @@
-
 module.exports = {
   userinfo: function (msg, items, memberstatus) {
     userinfo(msg, items, memberstatus)
@@ -8,6 +7,8 @@ module.exports = {
   }
 }
 
+// Sends an embedded message to the channel the message was initially sent in,
+// which in this case is a server, which contains information about a user
 function userinfo (msg, items, memberstatus) {
   var color
   if (memberstatus.colorRole != null) {
@@ -54,6 +55,8 @@ function userinfo (msg, items, memberstatus) {
   })
 }
 
+// Sends an embedded message to the channel the message was initially sent in,
+// which in this case is a direct message, which contains information about a user
 function userinfodm (msg, items) {
   msg.channel.send({ 'embed': {
     'color': 10070709,
@@ -89,6 +92,7 @@ function userinfodm (msg, items) {
 }
 
 // https://gist.github.com/Erichain/6d2c2bf16fe01edfcffa
+// Converts milliseconds to the time in days, hours, minutes, and seconds
 function convertms (milliseconds) {
   var day, hour, minute, seconds
   seconds = Math.floor(milliseconds / 1000)

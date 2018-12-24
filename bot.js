@@ -16,17 +16,23 @@ bot.on('ready', function () {
 })
 
 bot.on('message', function (msg) {
+  // Returns the user link of the message sender
   if (msg.content === 'What is my url?') {
     url.urlstuff(msg, msg.author)
+
+  // Commands which use the prefix
   } else if (msg.content.startsWith(prefix)) {
     const args = msg.content.slice(prefix.length).trim().split(/ +/g)
     const command = args.shift()
+
     // Help
     if (command === 'help') {
       msg.channel.send('You can either type ``What is my url?`` or ``url?<mentions>`` \n For more information on a user, type ``url?info <mentions?>``')
+
     // url? with no mentions
     } else if (command === '') {
       msg.channel.send('Must include a mention.')
+
     // Info in Servers
     } else if (command === 'info' && msg.guild != null && msg.guild.available) {
       if (msg.mentions.users.size < 1) {
@@ -34,14 +40,16 @@ bot.on('message', function (msg) {
       } else if (msg.mentions.users.size > 0) {
         info.userinfo(msg, msg.mentions.users.first(), msg.mentions.members.first())
       }
-      // Info in DMs
+
+    // Info in DMs
     } else if (command === 'info' && (msg.channel.type === 'dm' || msg.channel.type === 'group')) {
       if (msg.mentions.users.size < 1) {
         info.userinfodm(msg, msg.author)
       } else if (msg.mentions.users.size > 0) {
         info.userinfodm(msg, msg.mentions.users.first())
       }
-      // Downloading
+
+    // Downloading
     } else if (command === 'dl') {
       if (!fs.existsSync('./' + msg.author.id + '.mp3') && args.length > 0 && ytdl.validateURL(args[0])) {
         dl.dl(args[0], msg.author.id, msg)
@@ -52,7 +60,8 @@ bot.on('message', function (msg) {
       } else {
         msg.channel.send('Please include a valid youtube video url.')
       }
-      // URL from mentions
+
+    // URL from mentions
     } else if (msg.mentions.users.size < 1) {
       msg.channel.send('No mentions found, make sure you are actually mentioning someone.')
     } else if (msg.mentions.users.size > 0) {

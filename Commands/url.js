@@ -4,6 +4,8 @@ module.exports = {
   }
 }
 
+// Sends an embedded message to the channel the message was initially sent in
+// which contains the link to the requested user profile
 function urlstuff (msg, items) {
   msg.channel.send({ embed: {
     color: Math.floor(Math.random() * 16777214) + 1,
