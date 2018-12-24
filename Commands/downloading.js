@@ -25,22 +25,6 @@ function dl(str, id, msg){
   })
 }
 
-function down(str, id){
-  ytdl(str).pipe(fs.createWriteStream(id + '.mp4'));
-}
-
-function modify(id){
-  ffmpeg(id +'.mp4').noVideo().audioBitrate(96).save(id + ".mp3");
-}
-
-function sending(msg){
-  msg.channel.send("Hewwo", {
-    files: ["./" + msg.author.id + ".mp3"]
-    })
-  .then(console.log)
-  .catch(console.error);
-}
-
 function deleting(id){
   fs.unlink(id + ".mp3", (err) => {
   });
