@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "ytdl-core": "^0.28.3"
   }
 }
