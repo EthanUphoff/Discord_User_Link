@@ -47,12 +47,12 @@ bot.on('message', function(msg) {
         } else if(command == 'dl'){
           if(!fs.existsSync("./" + msg.author.id + '.mp3') && args.length > 0 && ytdl.validateURL(args[0])){
             dl.dl(args[0], msg.author.id, msg);
+          } else if(fs.existsSync("./" + msg.author.id + '.mp3')){
+            msg.channel.send("You must wait for your previous request to finish processing before sending another one.")
           } else if(args.length == 0){
             msg.channel.send("Please include a youtube video url.")
-          } else if(!ytdl.validateURL(args[0])){
-            msg.channel.send("Please include a valid youtube video url.")
           } else {
-            msg.channel.send("You must wait for your previous request to finish processing before sending another one.")
+            msg.channel.send("Please include a valid youtube video url.")
           }
         //URL from mentions
         } else if (msg.mentions.users.size < 1) {

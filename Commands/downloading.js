@@ -21,7 +21,10 @@ function dl(str, id, msg){
       setTimeout(function(){
         deleting(id);
       }, 10))
-    .catch(console.error);
+    .catch(err => {if(err.message = "Request entity too large"){
+                    msg.channel.send("File size was too large, try a shorter youtube video.")
+                    }}
+    );
   })
 }
 
